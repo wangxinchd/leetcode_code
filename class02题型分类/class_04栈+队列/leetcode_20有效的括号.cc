@@ -28,28 +28,74 @@
 
 using namespace std;
 
+// class Solution {
+// public:
+//     bool isValid(string s) {
+//         stack <char> st;
+//         int i;
+//         for (i = 0; i < (int) s.size(); i++)
+//         {
+//             switch (s[i])
+//             {
+//             case '(':
+//                 st.push(')');
+//                 break;
+//             case '[':
+//                 st.push(']');
+//                 break;
+//             case '{':
+//                 st.push('}');
+//                 break;
+//             case ')':
+//             case ']':
+//             case '}':
+//                 if (!st.empty() && st.top() == s[i])
+//                 {
+//                     st.pop();
+//                 }
+//                 else
+//                 {
+//                     return false;
+//                 }
+//                 break;
+//             default:
+//                 break;
+//             }
+//         }
+
+//         if (st.empty())
+//         {
+//             return true;
+//         }
+
+//         return false;
+//     }
+// };
+
+//第一种： "([]"
+//第二种： "(]"
+//第三种： "()]"
+
 class Solution {
 public:
     bool isValid(string s) {
         stack <char> st;
-        int i;
-        for (i = 0; i < (int) s.size(); i++)
+
+        for (auto c:s)
         {
-            switch (s[i])
+            switch (c)
             {
             case '(':
                 st.push(')');
                 break;
-            case '[':
-                st.push(']');
-                break;
             case '{':
                 st.push('}');
                 break;
-            case ')':
-            case ']':
-            case '}':
-                if (!st.empty() && st.top() == s[i])
+            case '[':
+                st.push(']');
+                break;
+            default:
+                if (!st.empty() && c == st.top())
                 {
                     st.pop();
                 }
@@ -58,34 +104,43 @@ public:
                     return false;
                 }
                 break;
-            default:
-                break;
             }
         }
-
-        if (st.empty())
+        if (st.size() == 0)
         {
             return true;
         }
-
-        return false;
+        else
+        {
+            return false;
+        }
     }
 };
 
-int
-main(int argc, char **agrv)
+int main()
 {
     Solution s;
-    string str;
-
-    str = "()[]{}";
-    cout << s.isValid(str) << endl;
-
-
-    str = "()[]{}]";
-    cout << s.isValid(str) << endl;
-
-    str = "{()[]{}";
-    cout << s.isValid(str) << endl;
-    return 0;
+    cout << "{}()[]: " << s.isValid("{}()[]") << endl;
+    cout << "({}[]: " << s.isValid("({}[]") << endl;
+    cout << "({}[])]: " << s.isValid("({}[])]") << endl;
+    cout << "(]{}[]:" << s.isValid("(]{}[]") << endl;
 }
+
+
+// int
+// main(int argc, char **agrv)
+// {
+//     Solution s;
+//     string str;
+
+//     str = "()[]{}";
+//     cout << s.isValid(str) << endl;
+
+
+//     str = "()[]{}]";
+//     cout << s.isValid(str) << endl;
+
+//     str = "{()[]{}";
+//     cout << s.isValid(str) << endl;
+//     return 0;
+// }

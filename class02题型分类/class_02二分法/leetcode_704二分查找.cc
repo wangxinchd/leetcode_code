@@ -29,33 +29,61 @@ nums 的每个元素都将在 [-9999, 9999]之间。
 
 using namespace std;
 
+// class Solution {
+// public:
+//     int search(vector<int>& nums, int target) {
+//         int middle, right, left;
+
+//         left = 0;
+//         right = (int) nums.size() - 1;
+
+//         while (left <= right)
+//         {
+//             middle = (left + right) / 2;
+//             if (nums[middle] < target)
+//             {
+//                 left = middle + 1;
+//             }
+//             else if (nums[middle] > target)
+//             {
+//                 right = middle - 1;
+//             }
+//             else
+//             {
+//                 return middle;
+//             }
+//         }
+//         return -1;
+//     }
+// };
+
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        int middle, right, left;
+        int left = 0, right = nums.size() - 1;
+        int mid;
 
-        left = 0;
-        right = (int) nums.size() - 1;
-
-        while (left <= right)
+        while (left < right)
         {
-            middle = (left + right) / 2;
-            if (nums[middle] < target)
+            mid = (left + right) / 2;
+            if (nums[mid] < target)
             {
-                left = middle + 1;
+                left = mid;
             }
-            else if (nums[middle] > target)
+            else if (nums[mid] == target)
             {
-                right = middle - 1;
+                return mid;
             }
             else
             {
-                return middle;
+                right = mid;
             }
         }
+
         return -1;
     }
 };
+
 
 int
 main(int argc, char **agrv)

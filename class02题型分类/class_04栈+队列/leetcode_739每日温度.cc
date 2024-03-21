@@ -24,8 +24,8 @@
 
 */
 #include <iostream>
+#include <stack>
 #include <vector>
-#include<stack>
 
 using namespace std;
 

@@ -55,23 +55,22 @@ public:
 };
 */
 
-// 这种方式会减少内存消耗
+
+//  双指针
 class Solution {
 public:
     int removeElement(vector<int>& nums, int val) {
-        int left, right;
-        left = 0;
-        for (right = 0; right < (int) nums.size(); right++)
+        int fast, slow = 0;
+        for (fast = 0; fast < nums.size(); fast++)
         {
-            if (nums[right] != val)
+            if (nums[fast] != val)
             {
-                nums[left] = nums[right];
-                left++;
+                nums[slow] = nums[fast];
+                slow++;
             }
         }
 
-
-        return left;
+        return slow;
     }
 };
 

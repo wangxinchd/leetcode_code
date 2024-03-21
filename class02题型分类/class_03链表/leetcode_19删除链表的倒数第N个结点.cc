@@ -104,14 +104,13 @@ void printList(ListNode *head)
     printf("\n");
 }
 
+#if 0
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
         int i = 0, len = 0;
-        ListNode dummyHead(-1);
-        dummyHead.next = head;
-
         ListNode *p = head;
+        ListNode *tmp;
 
         while (p != NULL)
         {
@@ -119,18 +118,46 @@ public:
             p = p->next;
         }
 
-        p = head;
-        while (p != NULL)
+        ListNode dummyHead(-1);
+        dummyHead.next = head;
+
+        p = &dummyHead;
+        for (i = 0; i < len - n; i++)
         {
-            i++;
-            if (i == len - n)
-            {
-                p = p->next->next;
-            }
+            // printList(p);
             p = p->next;
         }
+        tmp = p->next;
+        p->next = p->next->next;
+        delete tmp;
 
-        cout << "len: " << len << endl;
+        return dummyHead.next;
+    }
+};
+#endif
+
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        int i;
+        ListNode dummyHead(-1);
+        ListNode *first, *secend;
+
+        dummyHead.next = head;
+        first = &dummyHead;
+        secend = &dummyHead;
+
+        for (i = 0; i < n + 1; i++)
+        {
+            first = first->next;
+        }
+
+        while (first != NULL)
+        {
+            first = first->next;
+            secend = secend->next;
+        }
+        secend->next = secend->next->next;
 
         return dummyHead.next;
     }
@@ -142,9 +169,17 @@ main(int argc, char **agrv)
     Solution solution;
     vector<int> nums1 = { 1, 2, 3, 4, 5 };
     ListNode *list1 = createList(nums1);
-    printList(list1);
+    // printList(list1);
 
-    printList(solution.removeNthFromEnd(list1, 2));
+    ListNode *ret = solution.removeNthFromEnd(list1, 2);
+
+    printList(ret);
+
+    printf("====2====\n");
+    vector<int> nums2 = { 1 };
+    ListNode *list2 = createList(nums2);
+    ret = solution.removeNthFromEnd(list2, 1);
+    printList(ret);
 
     return 0;
 }

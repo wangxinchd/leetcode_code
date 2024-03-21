@@ -11,7 +11,7 @@ void print(int *p, int size)
 
 // 打印vector
 void
-print_vector(vector<int> v)
+print_vector(const vector<int> &v)
 {
     cout << "打印一维数组\n";
     cout << "[";
@@ -38,6 +38,18 @@ print_vector2(vector<vector<int>> vec)
             printf("%d, ", vec[i][j]);
         }
         printf("\n");
+    }
+    printf("===end===\n");
+    fflush(NULL);
+}
+
+void
+print_vector_string(vector<string> words)
+{
+    cout << "打印字符串数组\n";
+    for (auto word:words)
+    {
+            printf("%s, ", word.c_str());
     }
     printf("===end===\n");
     fflush(NULL);
